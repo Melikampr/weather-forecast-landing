@@ -1,3 +1,4 @@
+import {showModal, hideModal} from "./modal";
 import {setResult, searchResults, getSearchData} from "./search";
 
 export let coords: string;
@@ -11,6 +12,18 @@ function init() {
     searchInput.addEventListener('input', (event) => {
         const inputValue = (event.target as HTMLInputElement).value;
         getSearchData(inputValue);
+    });
+
+    const modalButton = document.getElementById("modal-button");
+
+    modalButton.addEventListener("click", () => {
+        showModal();
+    });
+
+    const hideModalButton = document.querySelector('.hide_modal') as HTMLButtonElement;
+
+    hideModalButton.addEventListener('click', () => {
+        hideModal();
     });
 }
 
@@ -67,7 +80,7 @@ export async function handleWeatherData(index: number): Promise<void> {
 
     setResult();
 
-    // showModal();
+    showModal();
     // Clear the search input field
     if (searchInput) {
         searchInput.value = '';

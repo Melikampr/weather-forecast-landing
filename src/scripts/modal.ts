@@ -1,4 +1,4 @@
-// import { setWeatherData, showHistory } from "./history";
+import { setWeatherData, showHistory } from "./history";
 export let currentDate: Date;
 
 // Function to display a modal with user location data
@@ -13,8 +13,8 @@ export function showModal() {
 export async function hideModal() {
     let modalContainer = document.getElementsByClassName("modal-container")[0] as HTMLElement;
     modalContainer.style.display = "none";
-    // await setWeatherData();
-    // showHistory();
+    await setWeatherData();
+    showHistory();
 }
 
 // Function to display the last request time
