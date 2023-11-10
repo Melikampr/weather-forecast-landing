@@ -1,8 +1,18 @@
+import {setResult, searchResults, getSearchData} from "./search";
 
 export let coords: string;
 let lat: string, lon: string;
 
 let searchInput = document.getElementById('search-input') as HTMLInputElement;
+
+function init() {
+    getLocation();
+
+    searchInput.addEventListener('input', (event) => {
+        const inputValue = (event.target as HTMLInputElement).value;
+        getSearchData(inputValue);
+    });
+}
 
 export function setCoords(latitude: string, longitude: string) {
     coords = latitude + ", " + longitude;
@@ -44,3 +54,24 @@ window.onresize = function () {
     modalContainer.style.height = window.innerHeight + "px";
     modalContainer.style.width = window.innerWidth + "px";
 }
+
+// Function to handle weather data for a selected location
+export async function handleWeatherData(index: number): Promise<void> {
+    lat = searchResults[index].lat;
+    lon = searchResults[index].lon;
+    setCoords(lat, lon);
+
+    const modalContent = document.getElementById("modal_content");
+    if (modalContent)
+        await modalContent.setAttribute('src', 'https://weather-app-4b39f.web.app?q=' + coords)
+
+    setResult();
+
+    // showModal();
+    // Clear the search input field
+    if (searchInput) {
+        searchInput.value = '';
+    }
+}
+
+init();
