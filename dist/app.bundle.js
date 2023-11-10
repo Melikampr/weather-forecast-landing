@@ -1,0 +1,1 @@
+(()=>{"use strict";document.getElementById("search-input"),window.onresize=function(){var e=document.getElementsByClassName("modal-container")[0];e.style.height=window.innerHeight+"px",e.style.width=window.innerWidth+"px"}})();
