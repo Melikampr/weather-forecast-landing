@@ -20,8 +20,7 @@ This project is a weather forecast website that allows users to search for weath
 - The history section displays the last requests for weather forecasts made by the user, allowing them to track their request history.
 - Displays weather forecast highlights.
 ## Demo
-https://weather-app-4b39f.web.app/
-
+https://weather-forecast-b7ba0.web.app/
 
 ## Installation
 
