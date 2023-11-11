@@ -7,8 +7,6 @@ let lat: string, lon: string;
 let searchInput = document.getElementById('search-input') as HTMLInputElement;
 
 function init() {
-    getLocation();
-
     searchInput.addEventListener('input', (event) => {
         const inputValue = (event.target as HTMLInputElement).value;
         getSearchData(inputValue);
@@ -17,7 +15,7 @@ function init() {
     const modalButton = document.getElementById("modal-button");
 
     modalButton.addEventListener("click", () => {
-        showModal();
+        getUserLocation();
     });
 
     const hideModalButton = document.querySelector('.hide_modal') as HTMLButtonElement;
@@ -25,6 +23,11 @@ function init() {
     hideModalButton.addEventListener('click', () => {
         hideModal();
     });
+
+    // Clear the search input field
+    if (searchInput) {
+        searchInput.value = '';
+    }
 }
 
 export function setCoords(latitude: string, longitude: string) {
@@ -45,27 +48,39 @@ let userLocation = async function (pos: GeolocationPosition) {
     }
 }
 
-// Function to get the user's current location
 async function getLocation(): Promise<boolean> {
     if (navigator.geolocation) {
-        // Use geolocation to get the user's current position
-        await navigator.geolocation.getCurrentPosition(userLocation);
+        try {
+            // Use geolocation to get the user's current position
+            const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject);
+            });
+            await userLocation(pos);
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     } else {
-        //     x.innerHTML = "Geolocation is not supported by this browser.";
-        console.log("geo Location error")
+        console.log("Geolocation is not supported by this browser.");
+        return false;
     }
-    // Clear the search input field
-    if (searchInput) {
-        searchInput.value = '';
-    }
-    return false;
 }
+
 
 // Update the modal container size when the window is resized
 window.onresize = function () {
     let modalContainer = document.getElementsByClassName("modal-container")[0] as HTMLElement;
     modalContainer.style.height = window.innerHeight + "px";
     modalContainer.style.width = window.innerWidth + "px";
+}
+
+async function getUserLocation() {
+    await getLocation().then((result) => {
+        if (result) {
+            showModal();
+        }
+    });
 }
 
 // Function to handle weather data for a selected location
