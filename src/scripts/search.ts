@@ -5,7 +5,7 @@ let table: HTMLTableElement;
 const tableContainer: HTMLElement | null = document.querySelector('#table-container');
 // Function to fetch search data from an API
 export async function getSearchData(inputQuery: string): Promise<void> {
-    const api_key = process.env.WEATHER_API_KEY;
+    const api_key = '79b018d6047e4db0bc1140248231609';
     query = inputQuery;
 
     await fetch(`https://api.weatherapi.com/v1/search.json?key=${api_key}&q=${query}`)

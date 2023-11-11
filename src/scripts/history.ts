@@ -5,7 +5,7 @@ let weatherData: any;
 
 // Function to fetch weather data from an API
 async function getData(): Promise<void> {
-    const api_key = process.env.WEATHER_API_KEY;
+    const api_key = '79b018d6047e4db0bc1140248231609';
 
     const locationCoords = coords.split(", ")
     const lat = locationCoords[0];
